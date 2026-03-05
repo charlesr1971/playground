@@ -180,6 +180,7 @@ function editTodo(idx) {
 function saveEdit(idx, value) {
 	todos[idx].text = value.trim() || todos[idx].text;
 	todos[idx].editing = false;
+	syncTodosInStorageIfPresent();
 	renderTodos();
 }
 function cancelEdit(idx) {
