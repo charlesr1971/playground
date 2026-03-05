@@ -2,6 +2,7 @@ const todoForm = document.getElementById('todo-form');
 const todoInput = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
 const saveBtn = document.getElementById('save-btn');
+const saveAllBtn = document.getElementById('save-all-btn');
 const removeBtn = document.getElementById('remove-btn');
 const storageDuration = document.getElementById('storage-duration');
 const STORAGE_KEY = 'ai-todo-list';
@@ -148,7 +149,7 @@ function loadTodosFromStorage() {
 
 function removeTodosFromStorage() {
 	localStorage.removeItem(STORAGE_KEY);
-	alert('Todo list removed from storage.');
+	alert('All todo items removed from storage.');
 }
 
 function syncTodosInStorageIfPresent() {
@@ -167,6 +168,7 @@ function syncTodosInStorageIfPresent() {
 }
 
 saveBtn.onclick = saveTodosToStorage;
+saveAllBtn.onclick = saveTodosToStorage;
 removeBtn.onclick = removeTodosFromStorage;
 
 if (!loadTodosFromStorage()) {
