@@ -233,6 +233,21 @@
 			alert('Todo list removed from storage.');
 		}
 
+		function syncTodosInStorageIfPresent() {
+			const data = localStorage.getItem(STORAGE_KEY);
+			if (!data) return;
+			try {
+				const parsed = JSON.parse(data);
+				if (parsed.expiry && parsed.expiry > Date.now()) {
+					localStorage.setItem(STORAGE_KEY, JSON.stringify({ todos, expiry: parsed.expiry }));
+				} else {
+					localStorage.removeItem(STORAGE_KEY);
+				}
+			} catch {
+				localStorage.removeItem(STORAGE_KEY);
+			}
+		}
+
 		// --- Event Listeners for Storage ---
 		saveBtn.onclick = saveTodosToStorage;
 		removeBtn.onclick = removeTodosFromStorage;
@@ -258,6 +273,7 @@
 		}
 		function deleteTodo(idx) {
 			todos.splice(idx, 1);
+			syncTodosInStorageIfPresent();
 			renderTodos();
 		}
 		function moveTodo(idx, dir) {
