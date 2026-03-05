@@ -99,6 +99,7 @@ function handleDrop(e) {
 	if (dragSrcIdx !== null && dragSrcIdx !== targetIdx) {
 		const [moved] = todos.splice(dragSrcIdx, 1);
 		todos.splice(targetIdx, 0, moved);
+		syncTodosInStorageIfPresent();
 		renderTodos();
 	}
 	dragSrcIdx = null;
@@ -197,6 +198,7 @@ function moveTodo(idx, dir) {
 	if (newIdx < 0 || newIdx >= todos.length) return;
 	const [item] = todos.splice(idx, 1);
 	todos.splice(newIdx, 0, item);
+	syncTodosInStorageIfPresent();
 	renderTodos();
 }
 renderTodos();
