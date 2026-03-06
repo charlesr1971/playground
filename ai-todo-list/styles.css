@@ -41,7 +41,7 @@ h2 { text-align: center; margin-bottom: 24px; }
 #add-btn:hover { background: #0056b3; }
 .todo-header {
 	display: grid;
-	grid-template-columns: 228px 150px 150px 150px;
+	grid-template-columns: 280px 150px 150px 150px;
 	gap: 8px;
 	padding: 0 12px;
 	margin-bottom: 8px;
@@ -50,10 +50,10 @@ h2 { text-align: center; margin-bottom: 24px; }
 	color: #666;
 }
 ul { list-style: none; padding: 0; margin: 0; }
-li { display: grid; grid-template-columns: 228px 150px 150px 150px; gap: 8px; align-items: center; background: #f9f9f9; margin-bottom: 8px; padding: 8px 12px; border-radius: 4px; }
+li { display: grid; grid-template-columns: 280px 150px 150px 150px; gap: 8px; align-items: center; background: #f9f9f9; margin-bottom: 8px; padding: 8px 12px; border-radius: 4px; }
 li.dragging { opacity: 0.5; }
 li.drag-over { border: 2px dashed #007bff; }
-.todo-text { width: 228px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.todo-text { width: 280px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .todo-date { width: 150px; font-size: 13px; color: #666; }
 .todo-modified { width: 150px; font-size: 13px; color: #666; }
 .actions { width: 150px; display: flex; justify-content: flex-end; }
@@ -62,4 +62,4 @@ li.drag-over { border: 2px dashed #007bff; }
 .actions button.delete { color: #dc3545; }
 .actions button.up, .actions button.down { color: #007bff; }
 .actions button:disabled { color: #ccc; cursor: not-allowed; }
-input.edit-input { width: 228px; box-sizing: border-box; padding: 6px; border: 1px solid #aaa; border-radius: 4px; }
+input.edit-input { width: 280px; box-sizing: border-box; padding: 6px; border: 1px solid #aaa; border-radius: 4px; }
