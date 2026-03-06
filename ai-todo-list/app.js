@@ -8,6 +8,27 @@ const storageDuration = document.getElementById('storage-duration');
 const STORAGE_KEY = 'ai-todo-list';
 let todos = [];
 
+function formatDate(dateValue) {
+	const date = new Date(dateValue);
+	if (Number.isNaN(date.getTime())) return '';
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	return year + '-' + month + '-' + day;
+}
+
+function formatDateTime(dateValue) {
+	const date = new Date(dateValue);
+	if (Number.isNaN(date.getTime())) return '';
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	const hours = String(date.getHours()).padStart(2, '0');
+	const minutes = String(date.getMinutes()).padStart(2, '0');
+	const seconds = String(date.getSeconds()).padStart(2, '0');
+	return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+}
+
 function renderTodos() {
 	todoList.innerHTML = '';
 	todos.forEach((todo, idx) => {
@@ -32,6 +53,14 @@ function renderTodos() {
 			span.textContent = todo.text;
 			li.appendChild(span);
 		}
+		const dateSpan = document.createElement('span');
+		dateSpan.className = 'todo-date';
+		dateSpan.textContent = formatDate(todo.createdAt);
+		li.appendChild(dateSpan);
+		const modifiedSpan = document.createElement('span');
+		modifiedSpan.className = 'todo-modified';
+		modifiedSpan.textContent = formatDateTime(todo.modifiedAt);
+		li.appendChild(modifiedSpan);
 		const actions = document.createElement('div');
 		actions.className = 'actions';
 		if (!todo.editing) {
@@ -115,8 +144,10 @@ todoForm.onsubmit = function(e) {
 	e.preventDefault();
 	const text = todoInput.value.trim();
 	if (text) {
-		todos.push({ text, editing: false });
+		const now = new Date().toISOString();
+		todos.push({ text, createdAt: now, modifiedAt: now, editing: false });
 		todoInput.value = '';
+		syncTodosInStorageIfPresent();
 		renderTodos();
 	}
 };
@@ -136,7 +167,12 @@ function loadTodosFromStorage() {
 	try {
 		const parsed = JSON.parse(data);
 		if (parsed.expiry && parsed.expiry > Date.now() && Array.isArray(parsed.todos)) {
-			todos = parsed.todos;
+			todos = parsed.todos.map((todo) => ({
+				text: todo.text || '',
+				createdAt: todo.createdAt || new Date().toISOString(),
+				modifiedAt: todo.modifiedAt || todo.createdAt || new Date().toISOString(),
+				editing: false
+			}));
 			return true;
 		} else {
 			localStorage.removeItem(STORAGE_KEY);
@@ -181,7 +217,11 @@ function editTodo(idx) {
 	renderTodos();
 }
 function saveEdit(idx, value) {
-	todos[idx].text = value.trim() || todos[idx].text;
+	const newValue = value.trim();
+	if (newValue && newValue !== todos[idx].text) {
+		todos[idx].text = newValue;
+		todos[idx].modifiedAt = new Date().toISOString();
+	}
 	todos[idx].editing = false;
 	syncTodosInStorageIfPresent();
 	renderTodos();

@@ -4,60 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Todo List App</title>
-	<style>
-			.storage-controls {
-				display: flex;
-				gap: 8px;
-				margin: 16px 0 8px 0;
-				justify-content: center;
-				align-items: center;
-				width: 100%;
-				box-sizing: border-box;
-			}
-			.storage-controls select {
-				flex: 0 0 90px;
-				min-width: 0;
-				padding: 6px 10px;
-				border-radius: 4px;
-				border: 1px solid #ccc;
-			}
-			.storage-controls button {
-				flex: 0 0 auto;
-				padding: 8px 13px;
-				border-radius: 4px;
-				border: 1px solid #ccc;
-				background: #007bff;
-				color: #fff;
-				border: none;
-				cursor: pointer;
-			}
-			.storage-controls button:hover { background: #0056b3; }
-			.storage-controls .remove-btn { background: #dc3545; }
-			.storage-controls .remove-btn:hover { background: #a71d2a; }
-			@media (min-width: 0px) {
-				.storage-controls, #todo-form {
-					width: 100%;
-				}
-			}
-		body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
-		.container { max-width: 400px; margin: 40px auto; background: #fff; padding: 24px 32px 32px 32px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-		h2 { text-align: center; margin-bottom: 24px; }
-		#todo-form { display: flex; gap: 8px; margin-bottom: 20px; }
-		#todo-input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-		#add-btn { padding: 8px 16px; border: none; background: #007bff; color: #fff; border-radius: 4px; cursor: pointer; }
-		#add-btn:hover { background: #0056b3; }
-		ul { list-style: none; padding: 0; margin: 0; }
-		li { display: flex; align-items: center; justify-content: space-between; background: #f9f9f9; margin-bottom: 8px; padding: 8px 12px; border-radius: 4px; }
-		li.dragging { opacity: 0.5; }
-		li.drag-over { border: 2px dashed #007bff; }
-		.todo-text { flex: 1; margin-right: 8px; word-break: break-word; }
-		.actions button { margin-left: 4px; border: none; background: none; cursor: pointer; font-size: 16px; }
-		.actions button.edit { color: #ffc107; }
-		.actions button.delete { color: #dc3545; }
-		.actions button.up, .actions button.down { color: #007bff; }
-		.actions button:disabled { color: #ccc; cursor: not-allowed; }
-		input.edit-input { flex: 1; padding: 6px; border: 1px solid #aaa; border-radius: 4px; }
-	</style>
+	<link rel="stylesheet" href="styles.css?v=20260306-1">
 </head>
 <body>
 	<div class="container">
@@ -77,8 +24,14 @@
 			<input type="text" id="todo-input" placeholder="Add a new todo..." required />
 			<button type="submit" id="add-btn">Add</button>
 		</form>
+		<div class="todo-header">
+			<span>Name</span>
+			<span>Date Created</span>
+			<span>Date Modified</span>
+			<span>Actions</span>
+		</div>
 		<ul id="todo-list"></ul>
 	</div>
-	<script src="app.js?v=20260305-11"></script>
+	<script src="app.js?v=20260306-3"></script>
 </body>
 </html>
