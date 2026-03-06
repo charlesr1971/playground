@@ -17,13 +17,13 @@
 .storage-controls select {
 	flex: 0 0 var(--storage-controls-width);
 	min-width: 0;
-	padding: 6px 10px;
+	padding: 12px 10px;
 	border-radius: 4px;
 	border: 1px solid #ccc;
 }
 .storage-controls button {
 	flex: 0 0 auto;
-	padding: 8px 13px;
+	padding: 12px 13px;
 	border-radius: 4px;
 	border: 1px solid #ccc;
 	background: #007bff;
@@ -43,7 +43,7 @@ body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 
 .container { max-width: var(--container-width); margin: 40px auto; background: #fff; padding: 24px 32px 32px 32px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 h2 { text-align: center; margin-bottom: 24px; }
 #todo-form { display: flex; gap: 8px; margin-bottom: 20px; }
-#todo-input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+#todo-input { flex: 1; padding: 13px; border: 1px solid #ccc; border-radius: 4px; }
 #add-btn { padding: 8px 16px; border: none; background: #007bff; color: #fff; border-radius: 4px; cursor: pointer; }
 #add-btn:hover { background: #0056b3; }
 .todo-header {
@@ -57,15 +57,15 @@ h2 { text-align: center; margin-bottom: 24px; }
 	color: #666;
 }
 ul { list-style: none; padding: 0; margin: 0; }
-li { display: grid; grid-template-columns: var(--todo-name-col-width) 150px 150px var(--todo-actions-col-width); gap: 8px; align-items: center; background: #f9f9f9; margin-bottom: 8px; padding: 8px 12px; border-radius: 4px; }
+li { display: grid; grid-template-columns: var(--todo-name-col-width) 150px 150px var(--todo-actions-col-width); gap: 8px; align-items: center; background: #f9f9f9; margin-bottom: 8px; padding: 17px 12px; border-radius: 4px; }
 li.dragging { opacity: 0.5; }
 li.drag-over { border: 2px dashed #007bff; }
 .todo-text { width: var(--todo-name-col-width); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .todo-date { width: 150px; font-size: 13px; color: #666; }
 .todo-modified { width: 150px; font-size: 13px; color: #666; }
 .actions { width: var(--todo-actions-col-width); display: flex; justify-content: flex-end; }
-.actions button { margin-left: 4px; border: none; background: none; cursor: pointer; font-size: 16px; }
-.actions button.edit { color: #ffc107; }
+.actions button { margin-left: 4px; border: none; background: none; cursor: pointer; font-size: 20px; }
+.actions button.edit { color: #009688; }
 .actions button.delete { color: #dc3545; }
 .actions button.up, .actions button.down { color: #007bff; }
 .actions button:disabled { color: #ccc; cursor: not-allowed; }
