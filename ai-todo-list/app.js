@@ -5,6 +5,9 @@ const saveBtn = document.getElementById('save-btn');
 const saveAllBtn = document.getElementById('save-all-btn');
 const removeBtn = document.getElementById('remove-btn');
 const storageDuration = document.getElementById('storage-duration');
+const nameModalOverlay = document.getElementById('name-modal-overlay');
+const nameModalCloseBtn = document.getElementById('name-modal-close');
+const nameModalContent = document.getElementById('name-modal-content');
 const STORAGE_KEY = 'ai-todo-list';
 let todos = [];
 
@@ -64,6 +67,13 @@ function renderTodos() {
 		const actions = document.createElement('div');
 		actions.className = 'actions';
 		if (!todo.editing) {
+			const viewBtn = document.createElement('button');
+			viewBtn.className = 'view';
+			viewBtn.title = 'View Full Name';
+			viewBtn.innerHTML = '👁️';
+			viewBtn.onclick = () => openNameModal(todo.text);
+			actions.appendChild(viewBtn);
+
 			const editBtn = document.createElement('button');
 			editBtn.className = 'edit';
 			editBtn.title = 'Edit';
@@ -203,9 +213,31 @@ function syncTodosInStorageIfPresent() {
 	}
 }
 
+function openNameModal(text) {
+	nameModalContent.textContent = text;
+	nameModalOverlay.classList.add('open');
+	nameModalOverlay.setAttribute('aria-hidden', 'false');
+}
+
+function closeNameModal() {
+	nameModalOverlay.classList.remove('open');
+	nameModalOverlay.setAttribute('aria-hidden', 'true');
+}
+
 saveBtn.onclick = saveTodosToStorage;
 saveAllBtn.onclick = saveTodosToStorage;
 removeBtn.onclick = removeTodosFromStorage;
+nameModalCloseBtn.onclick = closeNameModal;
+nameModalOverlay.addEventListener('click', (e) => {
+	if (e.target === nameModalOverlay) {
+		closeNameModal();
+	}
+});
+document.addEventListener('keydown', (e) => {
+	if (e.key === 'Escape' && nameModalOverlay.classList.contains('open')) {
+		closeNameModal();
+	}
+});
 
 if (!loadTodosFromStorage()) {
 	todos = [];
