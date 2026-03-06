@@ -1,7 +1,7 @@
  :root {
-    --container-width: 890px;
-    --storage-controls-width: 578px;
-	--todo-name-col-width: 380px;
+    --container-width: 990px;
+    --storage-controls-width: 678px;
+	--todo-name-col-width: 480px;
 }
 
 .storage-controls {
