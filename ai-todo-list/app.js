@@ -43,13 +43,34 @@ function renderTodos() {
 			input.type = 'text';
 			input.value = todo.text;
 			input.className = 'edit-input';
-			input.addEventListener('keydown', (e) => {
+			/* input.addEventListener('keydown', (e) => {
 				if (e.key === 'Enter') saveEdit(idx, input.value);
 				if (e.key === 'Escape') cancelEdit(idx);
 			});
-			input.addEventListener('blur', () => cancelEdit(idx));
+			input.addEventListener('blur', () => cancelEdit(idx)); */
+			let isFinished = false;
+
+			input.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter') {
+					isFinished = true;
+					saveEdit(idx, input.value);
+				}
+				if (e.key === 'Escape') {
+					isFinished = true;
+					cancelEdit(idx);
+				}
+			});
+
+			// Fix for Mobile & Desktop: Save when clicking/tapping away
+			input.addEventListener('blur', () => {
+				if (!isFinished) {
+					saveEdit(idx, input.value);
+				}
+			});
 			li.appendChild(input);
-			input.focus();
+			/* input.focus(); */
+			// Small delay ensures the focus works reliably on mobile Safari
+			setTimeout(() => input.focus(), 0);
 		} else {
 			const span = document.createElement('span');
 			span.className = 'todo-text';
@@ -71,7 +92,7 @@ function renderTodos() {
 			viewBtn.className = 'fa fa-eye view';
 			viewBtn.title = 'View Full Name';
 			// viewBtn.innerHTML = '👁️';
-            viewBtn.innerHTML = '';
+			viewBtn.innerHTML = '';
 			viewBtn.onclick = () => openNameModal(todo.text);
 			actions.appendChild(viewBtn);
 
@@ -79,7 +100,7 @@ function renderTodos() {
 			editBtn.className = 'fa fa-pencil edit';
 			editBtn.title = 'Edit';
 			// editBtn.innerHTML = '✏️';
-            editBtn.innerHTML = '';
+			editBtn.innerHTML = '';
 			editBtn.onclick = () => editTodo(idx);
 			actions.appendChild(editBtn);
 		}
@@ -87,14 +108,14 @@ function renderTodos() {
 		delBtn.className = 'fa fa-minus-circle delete';
 		delBtn.title = 'Delete';
 		// delBtn.innerHTML = '🗑️';
-        delBtn.innerHTML = '';
+		delBtn.innerHTML = '';
 		delBtn.onclick = () => deleteTodo(idx);
 		actions.appendChild(delBtn);
 		const upBtn = document.createElement('button');
 		upBtn.className = 'fa fa-arrow-circle-up up';
 		upBtn.title = 'Move Up';
 		// upBtn.innerHTML = '⬆️';
-        upBtn.innerHTML = '';
+		upBtn.innerHTML = '';
 		upBtn.disabled = idx === 0;
 		upBtn.onclick = () => moveTodo(idx, -1);
 		actions.appendChild(upBtn);
@@ -102,7 +123,7 @@ function renderTodos() {
 		downBtn.className = 'fa fa-arrow-circle-down down';
 		downBtn.title = 'Move Down';
 		// downBtn.innerHTML = '⬇️';
-        downBtn.innerHTML = '';
+		downBtn.innerHTML = '';
 		downBtn.disabled = idx === todos.length - 1;
 		downBtn.onclick = () => moveTodo(idx, 1);
 		actions.appendChild(downBtn);
@@ -127,6 +148,7 @@ function handleDragStart(e) {
 	this.classList.add('dragging');
 	e.dataTransfer.effectAllowed = 'move';
 }
+
 function handleDragOver(e) {
 	e.preventDefault();
 	if (!this.classList.contains('drag-over')) {
@@ -134,9 +156,11 @@ function handleDragOver(e) {
 	}
 	e.dataTransfer.dropEffect = 'move';
 }
+
 function handleDragLeave(e) {
 	this.classList.remove('drag-over');
 }
+
 function handleDrop(e) {
 	e.preventDefault();
 	this.classList.remove('drag-over');
@@ -149,6 +173,7 @@ function handleDrop(e) {
 	}
 	dragSrcIdx = null;
 }
+
 function handleDragEnd(e) {
 	this.classList.remove('dragging');
 	const items = document.querySelectorAll('#todo-list li');
@@ -253,6 +278,7 @@ function editTodo(idx) {
 	todos = todos.map((todo, i) => ({ ...todo, editing: i === idx }));
 	renderTodos();
 }
+
 function saveEdit(idx, value) {
 	const newValue = value.trim();
 	if (newValue && newValue !== todos[idx].text) {
@@ -263,15 +289,18 @@ function saveEdit(idx, value) {
 	syncTodosInStorageIfPresent();
 	renderTodos();
 }
+
 function cancelEdit(idx) {
 	todos[idx].editing = false;
 	renderTodos();
 }
+
 function deleteTodo(idx) {
 	todos.splice(idx, 1);
 	syncTodosInStorageIfPresent();
 	renderTodos();
 }
+
 function moveTodo(idx, dir) {
 	const newIdx = idx + dir;
 	if (newIdx < 0 || newIdx >= todos.length) return;

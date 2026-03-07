@@ -1,119 +1,345 @@
  :root {
-    --container-width: 990px;
-    --storage-controls-width: 678px;
-	--todo-name-col-width: 480px;
-    --todo-actions-col-width: 170px;
-}
+ 	--container-width-desktop: 990px;
+ 	--container-width-mobile: 100%;
+ 	--storage-controls-width-desktop: 678px;
+ 	--storage-controls-width-mobile: 100%;
+ 	--todo-name-col-width-desktop: 480px;
+ 	--todo-actions-col-width-desktop: 170px;
+ }
 
-.storage-controls {
-	display: flex;
-	gap: 8px;
-	margin: 16px 0 8px 0;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	box-sizing: border-box;
-}
-.storage-controls select {
-	flex: 0 0 var(--storage-controls-width);
-	min-width: 0;
-	padding: 12px 10px;
-	border-radius: 4px;
-	border: 1px solid #ccc;
-}
-.storage-controls button {
-	flex: 0 0 auto;
-	padding: 12px 13px;
-	border-radius: 4px;
-	border: 1px solid #ccc;
-	background: #007bff;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-}
-.storage-controls button:hover { background: #0056b3; }
-.storage-controls .remove-btn { background: #dc3545; }
-.storage-controls .remove-btn:hover { background: #a71d2a; }
-@media (min-width: 0px) {
-	.storage-controls, #todo-form {
-		width: 100%;
-	}
-}
-body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
-.container { max-width: var(--container-width); margin: 40px auto; background: #fff; padding: 24px 32px 32px 32px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-h2 { text-align: center; margin-bottom: 24px; }
-#todo-form { display: flex; gap: 8px; margin-bottom: 20px; }
-#todo-input { flex: 1; padding: 13px; border: 1px solid #ccc; border-radius: 4px; }
-#add-btn { padding: 8px 16px; border: none; background: #4caf50; color: #fff; border-radius: 4px; cursor: pointer; }
-#add-btn:hover { background: #0056b3; }
-.todo-header {
-	display: grid;
-	grid-template-columns: var(--todo-name-col-width) 150px 150px var(--todo-actions-col-width);
-	gap: 8px;
-	padding: 0 12px;
-	margin-bottom: 8px;
-	font-size: 12px;
-	font-weight: bold;
-	color: #666;
-}
-ul { list-style: none; padding: 0; margin: 0; }
-li { display: grid; grid-template-columns: var(--todo-name-col-width) 150px 150px var(--todo-actions-col-width); gap: 8px; align-items: center; background: #f9f9f9; margin-bottom: 8px; padding: 17px 12px; border-radius: 4px; }
-li.dragging { opacity: 0.5; }
-li.drag-over { border: 2px dashed #007bff; }
-.todo-text { width: var(--todo-name-col-width); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-.todo-date { width: 150px; font-size: 13px; color: #666; }
-.todo-modified { width: 150px; font-size: 13px; color: #666; }
-.actions { width: var(--todo-actions-col-width); display: flex; justify-content: flex-end; }
-.actions button { margin-left: 4px; border: none; background: none; cursor: pointer; font-size: 20px; }
-.actions button.edit { color: #009688; }
-.actions button.delete { color: #dc3545; }
-.actions button.up, .actions button.down { color: #007bff; }
-.actions button:disabled { color: #ccc; cursor: not-allowed; }
-input.edit-input { width: var(--todo-name-col-width); box-sizing: border-box; padding: 6px; border: 1px solid #aaa; border-radius: 4px; }
+ body {
+ 	font-family: Arial, sans-serif;
+ 	background: #f4f4f4;
+ 	margin: 0;
+ 	padding: 0;
+ }
 
-.modal-overlay {
-	position: fixed;
-	inset: 0;
-	background: rgba(0, 0, 0, 0.6);
-	display: none;
-	align-items: center;
-	justify-content: center;
-	z-index: 1000;
-}
+ .container {
+ 	max-width: var(--container-width-desktop);
+ 	margin: 40px auto;
+ 	background: #fff;
+ 	padding: 24px 32px 32px 32px;
+ 	border-radius: 8px;
+ 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
 
-.modal-overlay.open {
-	display: flex;
-}
+ h2 {
+ 	text-align: center;
+ 	margin-bottom: 24px;
+ }
 
-.modal-panel {
-	position: relative;
-	width: min(640px, calc(100% - 32px));
-    height: 300px;
-	background: #fff;
-	border-radius: 8px;
-	padding: 20px;
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-}
+ .storage-controls {
+ 	display: flex;
+ 	gap: 8px;
+ 	margin: 16px 0 8px 0;
+ 	justify-content: center;
+ 	align-items: center;
+ 	width: 100%;
+ 	box-sizing: border-box;
+ }
 
-.modal-close {
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	border: none;
-	background: none;
-	font-size: 20px;
-	line-height: 1;
-	cursor: pointer;
-	color: #666;
-}
+ .storage-controls select {
+ 	flex: 0 0 var(--storage-controls-width-desktop);
+ 	min-width: 0;
+ 	padding: 12px 10px;
+ 	border-radius: 4px;
+ 	border: 1px solid #ccc;
+ }
 
-.modal-close:hover {
-	color: #111;
-}
+ .storage-controls button {
+ 	flex: 0 0 auto;
+ 	padding: 12px 13px;
+ 	border-radius: 4px;
+ 	border: 1px solid #ccc;
+ 	background: #007bff;
+ 	color: #fff;
+ 	border: none;
+ 	cursor: pointer;
+ }
 
-.modal-content {
-	margin-top: 12px;
-	color: #222;
-	word-break: break-word;
-	white-space: pre-wrap;
-}
+ .storage-controls button:hover {
+ 	background: #0056b3;
+ }
+
+ .storage-controls .remove-btn {
+ 	background: #dc3545;
+ }
+
+ .storage-controls .remove-btn:hover {
+ 	background: #a71d2a;
+ }
+
+ @media (min-width: 0px) {
+
+ 	.storage-controls,
+ 	#todo-form {
+ 		width: 100%;
+ 	}
+ }
+
+ #todo-form {
+ 	display: flex;
+ 	gap: 8px;
+ 	margin-bottom: 20px;
+ }
+
+ #todo-input {
+ 	flex: 1;
+ 	padding: 13px;
+ 	border: 1px solid #ccc;
+ 	border-radius: 4px;
+ }
+
+ #add-btn {
+ 	padding: 8px 16px;
+ 	border: none;
+ 	background: #4caf50;
+ 	color: #fff;
+ 	border-radius: 4px;
+ 	cursor: pointer;
+ }
+
+ #add-btn:hover {
+ 	background: #0056b3;
+ }
+
+ .todo-header {
+ 	display: grid;
+ 	grid-template-columns: var(--todo-name-col-width-desktop) 150px 150px var(--todo-actions-col-width-desktop);
+ 	gap: 8px;
+ 	padding: 0 12px;
+ 	margin-bottom: 8px;
+ 	font-size: 12px;
+ 	font-weight: bold;
+ 	color: #666;
+
+ 	span:nth-child(2),
+ 	span:nth-child(3) {
+ 		display: block;
+ 	}
+ }
+
+ ul {
+ 	list-style: none;
+ 	padding: 0;
+ 	margin: 0;
+ }
+
+ li {
+ 	display: grid;
+ 	grid-template-columns: var(--todo-name-col-width-desktop) 150px 150px var(--todo-actions-col-width-desktop);
+ 	gap: 8px;
+ 	align-items: center;
+ 	background: #f9f9f9;
+ 	margin-bottom: 8px;
+ 	padding: 17px 12px;
+ 	border-radius: 4px;
+
+ 	span:nth-child(2),
+ 	span:nth-child(3) {
+ 		display: block;
+ 	}
+ }
+
+ li.dragging {
+ 	opacity: 0.5;
+ }
+
+ li.drag-over {
+ 	border: 2px dashed #007bff;
+ }
+
+ .todo-text {
+ 	width: var(--todo-name-col-width-desktop);
+ 	overflow: hidden;
+ 	white-space: nowrap;
+ 	text-overflow: ellipsis;
+ }
+
+ .todo-date {
+ 	width: 150px;
+ 	font-size: 13px;
+ 	color: #666;
+ }
+
+ .todo-modified {
+ 	width: 150px;
+ 	font-size: 13px;
+ 	color: #666;
+ }
+
+ .actions {
+ 	width: var(--todo-actions-col-width-desktop);
+ 	display: flex;
+ 	justify-content: flex-end;
+ }
+
+ .actions button {
+ 	margin-left: 4px;
+ 	border: none;
+ 	background: none;
+ 	cursor: pointer;
+ 	font-size: 20px;
+ }
+
+ .actions button.edit {
+ 	color: #009688;
+ }
+
+ .actions button.delete {
+ 	color: #dc3545;
+ }
+
+ .actions button.up,
+ .actions button.down {
+ 	color: #007bff;
+ }
+
+ .actions button:disabled {
+ 	color: #ccc;
+ 	cursor: not-allowed;
+ }
+
+ input.edit-input {
+ 	width: var(--todo-name-col-width-desktop);
+ 	box-sizing: border-box;
+ 	padding: 6px;
+ 	border: 1px solid #aaa;
+ 	border-radius: 4px;
+ }
+
+ .modal-overlay {
+ 	position: fixed;
+ 	inset: 0;
+ 	background: rgba(0, 0, 0, 0.6);
+ 	display: none;
+ 	align-items: center;
+ 	justify-content: center;
+ 	z-index: 1000;
+ }
+
+ .modal-overlay.open {
+ 	display: flex;
+ }
+
+ .modal-panel {
+ 	position: relative;
+ 	width: min(640px, calc(100% - 32px));
+ 	height: 300px;
+ 	background: #fff;
+ 	border-radius: 8px;
+ 	padding: 20px;
+ 	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+ }
+
+ .modal-close {
+ 	position: absolute;
+ 	top: 8px;
+ 	right: 8px;
+ 	border: none;
+ 	background: none;
+ 	font-size: 20px;
+ 	line-height: 1;
+ 	cursor: pointer;
+ 	color: #666;
+ }
+
+ .modal-close:hover {
+ 	color: #111;
+ }
+
+ .modal-content {
+ 	margin-top: 12px;
+ 	color: #222;
+ 	word-break: break-word;
+ 	white-space: pre-wrap;
+ }
+
+ /* media queries */
+
+ /* smart phones */
+
+ @media only screen and (min-device-width :320px) and (max-device-width :480px) {
+
+ 	.container {
+ 		max-width: var(--container-width-mobile);
+ 		border-radius: 0;
+ 		box-shadow: none;
+ 	}
+
+ 	.storage-controls select {
+ 		/* 1. Reset Safari's native styling */
+ 		-webkit-appearance: none;
+ 		-moz-appearance: none;
+ 		appearance: none;
+
+ 		flex: 1 1 auto;
+ 		/* Default: fill available space and shrink */
+ 		width: 100%;
+ 	}
+
+ 	.todo-header {
+ 		/* Mobile Default: Two columns (Description and Actions) */
+ 		grid-template-columns: 1fr auto;
+
+ 		/* Hide the dates on small screens */
+ 		span:nth-child(2),
+ 		span:nth-child(3) {
+ 			display: none;
+ 		}
+ 	}
+
+ 	li {
+ 		/* Mobile Default: Two columns (Description and Actions) */
+ 		/* grid-template-columns: 1fr auto; */
+ 		grid-template-columns: minmax(0, 1fr) auto;
+
+ 		/* Hide the dates on small screens */
+ 		/* span:nth-child(2),
+ 		span:nth-child(3) {
+ 			display: none;
+ 		} */
+ 		span.todo-date,
+ 		span.todo-modified {
+ 			display: none;
+ 		}
+ 	}
+
+ 	.actions {
+ 		/* REMOVE the fixed desktop width here */
+ 		width: auto;
+ 		display: flex;
+ 		justify-content: flex-end;
+ 		/* Add some space between buttons */
+ 		flex-shrink: 0;
+ 		/* Prevent buttons from squishing */
+ 	}
+
+ 	/*.edit-input {
+ 		width: 100%;
+ 		min-width: 0;
+ 		box-sizing: border-box;
+ 	}*/
+
+ 	.edit-input {
+ 		display: block;
+ 		/* Ensures it behaves as a block within the grid cell */
+ 		width: 100%;
+ 		/* Fill the 1fr space */
+ 		min-width: 0;
+ 		/* Allow it to shrink below its default 'size' */
+ 		max-width: 100%;
+ 		/* Hard boundary to the grid column */
+ 		box-sizing: border-box;
+
+ 		/* Optional: Match your previous padding/border */
+ 		padding: 8px;
+ 		border: 1px solid #ccc;
+ 		border-radius: 4px;
+ 	}
+
+ 	.modal-panel {
+ 		width: min(320px, calc(100% - 32px));
+ 	}
+
+ }
