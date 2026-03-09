@@ -1,0 +1,112 @@
+#id_topBar {
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: inherit;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 9;
+    height: 55px;
+}
+
+.in_headerOuter {
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: inherit;
+    background: #fff;
+}
+
+.in_headerInner.in_pageWidth {
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: inherit;
+    margin: 0 auto;
+    min-width: 320px;
+    max-width: 1400px;
+    background: #fff;
+}
+
+#ppuLogo {
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: inherit;
+    color: #435ca5;
+    text-decoration: none;
+    background: #ff9d00 url(../images/logowhite140.png) no-repeat scroll 20px center;
+    float: left;
+    height: 55px;
+    margin: 0;
+    width: 180px;
+}
+
+.in_topBarOuter {
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: inherit;
+    background: #ffc13c;
+}
+
+.in_topBarInner.in_pageWidth {
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: inherit;
+    margin: 0 auto;
+    min-width: 320px;
+    max-width: 1400px;
+    background: #ffc13c;
+    border-left: 0;
+    border-right: 0;
+}
+
+.in_topBarInner:after {
+    content: "";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+/* media queries */
+
+/* smart phones */
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+
+
+    #ppuLogo {
+        float: left;
+        height: 55px;
+        margin: 0;
+        background-image: url(../images/logowhitemobile.png);
+        background-position: center center;
+        width: 48px;
+    }
+
+}
